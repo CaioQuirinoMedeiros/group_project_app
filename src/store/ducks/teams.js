@@ -32,8 +32,6 @@ const INITIAL_STATE = Immutable({
  */
 const getSuccess = (state, { data }) => state.merge({ data });
 
-// localStorage.setItem('@saas:team', JSON.stringify(team));
-
 const selectTeam = (state, { team }) => state.merge({ active: team });
 
 const openTeamModal = state => state.merge({ teamModalOpen: true });

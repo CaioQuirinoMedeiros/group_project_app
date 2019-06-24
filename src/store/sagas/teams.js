@@ -1,5 +1,6 @@
 /* eslint-disable import/no-cycle */
 import { call, put } from 'redux-saga/effects';
+import { AsyncStorage } from 'react-native';
 
 import api from '../../services/api';
 
@@ -20,4 +21,8 @@ export function* createTeam({ name }) {
   } catch (err) {
     console.log(err);
   }
+}
+
+export function* setActiveTeam({ team }) {
+  yield call([AsyncStorage, 'setItem'], '@group_project:team', JSON.stringify(team));
 }

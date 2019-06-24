@@ -5,12 +5,19 @@ import { AsyncStorage } from 'react-native';
 import api from '../../services/api';
 import NavigationService from '../../services/navigation';
 import AuthActions from '../ducks/auth';
+import TeamsActions from '../ducks/teams';
 
 export function* init() {
   const token = yield call([AsyncStorage, 'getItem'], '@group_project:token');
 
   if (token) {
     yield put(AuthActions.signInSuccess(token));
+  }
+
+  const team = yield call([AsyncStorage, 'getItem'], '@group_project:team');
+
+  if (team) {
+    yield put(TeamsActions.selectTeam(JSON.parse(team)));
   }
 
   yield put(AuthActions.initCheckSuccess());
