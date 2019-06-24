@@ -9,6 +9,8 @@ import Icon from 'react-native-vector-icons/MaterialIcons';
 
 import MembersActions from '../../store/ducks/members';
 
+import InviteMember from '../InviteMember';
+
 import styles from './styles';
 
 class Members extends Component {
@@ -25,14 +27,27 @@ class Members extends Component {
     }).isRequired,
   };
 
+  state = {
+    isInviteModalOpen: false,
+  };
+
   componentDidMount() {
     const { getMembersRequest } = this.props;
 
     getMembersRequest();
   }
 
+  toggleInviteModalOpen = () => {
+    this.setState({ isInviteModalOpen: true });
+  };
+
+  toggleInviteModalClose = () => {
+    this.setState({ isInviteModalOpen: false });
+  };
+
   render() {
     const { members } = this.props;
+    const { isInviteModalOpen } = this.state;
 
     return (
       <View style={styles.container}>
@@ -41,7 +56,7 @@ class Members extends Component {
         <FlatList
           style={styles.memberList}
           ListFooterComponent={() => (
-            <TouchableOpacity style={styles.button} onPress={() => {}}>
+            <TouchableOpacity style={styles.button} onPress={this.toggleInviteModalOpen}>
               <Text style={styles.buttonText}>Convidar</Text>
             </TouchableOpacity>
           )}
@@ -65,6 +80,8 @@ class Members extends Component {
             </View>
           )}
         />
+
+        <InviteMember visible={isInviteModalOpen} onRequestClose={this.toggleInviteModalClose} />
       </View>
     );
   }

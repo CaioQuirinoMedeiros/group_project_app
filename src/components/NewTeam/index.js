@@ -10,7 +10,7 @@ import Modal from '../Modal';
 
 import styles from './styles';
 
-class NewProject extends Component {
+class NewTeam extends Component {
   static propTypes = {
     visible: PropTypes.bool.isRequired,
     onRequestClose: PropTypes.func.isRequired,
@@ -64,4 +64,4 @@ const mapDispatchToProps = dispatch => bindActionCreators(TeamsActions, dispatch
 export default connect(
   null,
   mapDispatchToProps,
-)(NewProject);
+)(NewTeam);

@@ -1,67 +1,68 @@
 import React, { Component } from 'react';
-import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { Text, TextInput, TouchableOpacity } from 'react-native';
 
-import ProjectsActions from '../../store/ducks/projects';
+import MembersActions from '../../store/ducks/members';
 
 import Modal from '../Modal';
 
 import styles from './styles';
 
-class NewProject extends Component {
+class InviteMember extends Component {
+  state = {
+    email: '',
+  };
+
   static propTypes = {
     visible: PropTypes.bool.isRequired,
     onRequestClose: PropTypes.func.isRequired,
-    createProjectRequest: PropTypes.func.isRequired,
-  };
-
-  state = {
-    newProject: '',
+    inviteMemberRequest: PropTypes.func.isRequired,
   };
 
   handleSubmit = () => {
-    const { createProjectRequest, onRequestClose } = this.props;
-    const { newProject } = this.state;
+    const { inviteMemberRequest, onRequestClose } = this.props;
+    const { email } = this.state;
 
-    createProjectRequest(newProject);
+    inviteMemberRequest(email);
     onRequestClose();
+
+    this.setState({ email: '' });
   };
 
   render() {
     const { visible, onRequestClose } = this.props;
-    const { newProject } = this.state;
+    const { email } = this.state;
 
     return (
       <Modal visible={visible} onRequestClose={onRequestClose}>
-        <Text style={styles.label}>TÍTULO</Text>
+        <Text style={styles.label}>EMAIL</Text>
 
         <TextInput
           style={styles.input}
           autoFocus
+          autoCapitalize="none"
+          keyboardType="email-address"
+          autoCorrect={false}
           underlineColorAndroid="transparent"
           returnKeyType="send"
           onSubmitEditing={this.handleSubmit}
-          value={newProject}
-          onChangeText={text => this.setState({ newProject: text })}
+          value={email}
+          onChangeText={text => this.setState({ email: text })}
         />
 
         <TouchableOpacity style={styles.button} onPress={this.handleSubmit}>
-          <Text style={styles.buttonText}>CRIAR PROJETO</Text>
-        </TouchableOpacity>
-
-        <TouchableOpacity style={styles.cancel} onPress={onRequestClose}>
-          <Text style={styles.cancelText}>CANCELAR</Text>
+          <Text style={styles.buttonText}>CONVIDAR</Text>
         </TouchableOpacity>
       </Modal>
     );
   }
 }
 
-const mapDispatchToProps = dispatch => bindActionCreators(ProjectsActions, dispatch);
+const mapDispatchToProps = dispatch => bindActionCreators(MembersActions, dispatch);
 
 export default connect(
   null,
   mapDispatchToProps,
-)(NewProject);
+)(InviteMember);
