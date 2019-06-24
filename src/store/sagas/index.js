@@ -12,8 +12,8 @@ import { getTeams, createTeam, setActiveTeam } from './teams';
 import { ProjectsTypes } from '../ducks/projects';
 import { getProjects, createProject, deleteProject } from './projects';
 
-// import { MembersTypes } from '../ducks/members';
-// import { getMembers, updateMember, inviteMember } from './members';
+import { MembersTypes } from '../ducks/members';
+import { getMembers, updateMember, inviteMember } from './members';
 
 export default function* rootSaga() {
   return yield all([
@@ -34,8 +34,9 @@ export default function* rootSaga() {
     takeLatest(ProjectsTypes.CREATE_PROJECT_REQUEST, createProject),
     takeLatest(ProjectsTypes.DELETE_PROJECT_REQUEST, deleteProject),
 
-    // takeLatest(MembersTypes.GET_MEMBERS_REQUEST, getMembers),
-    // takeLatest(MembersTypes.UPDATE_MEMBER_REQUEST, updateMember),
-    // takeLatest(MembersTypes.INVITE_MEMBER_REQUEST, inviteMember),
+    takeLatest(TeamsTypes.SELECT_TEAM, getMembers),
+    takeLatest(MembersTypes.GET_MEMBERS_REQUEST, getMembers),
+    takeLatest(MembersTypes.UPDATE_MEMBER_REQUEST, updateMember),
+    takeLatest(MembersTypes.INVITE_MEMBER_REQUEST, inviteMember),
   ]);
 }

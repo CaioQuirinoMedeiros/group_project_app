@@ -15,11 +15,13 @@ class Projects extends Component {
   static propTypes = {
     getProjectsRequest: PropTypes.func.isRequired,
     activeTeam: PropTypes.shape().isRequired,
-    projects: PropTypes.arrayOf(
-      PropTypes.shape({
-        title: PropTypes.string,
-      }),
-    ).isRequired,
+    projects: PropTypes.shape({
+      data: PropTypes.arrayOf(
+        PropTypes.shape({
+          title: PropTypes.string,
+        }),
+      ),
+    }).isRequired,
   };
 
   componentDidMount() {
