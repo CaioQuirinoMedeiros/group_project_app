@@ -18,7 +18,7 @@ class Projects extends Component {
   static propTypes = {
     getProjectsRequest: PropTypes.func.isRequired,
     deleteProjectRequest: PropTypes.func.isRequired,
-    activeTeam: PropTypes.shape().isRequired,
+    activeTeam: PropTypes.shape(),
     projects: PropTypes.shape({
       data: PropTypes.arrayOf(
         PropTypes.shape({
@@ -26,6 +26,10 @@ class Projects extends Component {
         }),
       ),
     }).isRequired,
+  };
+
+  static defaultProps = {
+    activeTeam: null,
   };
 
   state = {
