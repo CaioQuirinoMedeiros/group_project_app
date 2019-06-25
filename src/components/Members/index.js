@@ -9,7 +9,9 @@ import Icon from 'react-native-vector-icons/MaterialIcons';
 
 import MembersActions from '../../store/ducks/members';
 
+import RoleUpdater from '../RoleUpdater';
 import InviteMember from '../InviteMember';
+import Can from '../Can';
 
 import styles from './styles';
 
@@ -29,6 +31,8 @@ class Members extends Component {
 
   state = {
     isInviteModalOpen: false,
+    isRoleModalOpen: false,
+    memberEdit: null,
   };
 
   componentDidMount() {
@@ -45,9 +49,17 @@ class Members extends Component {
     this.setState({ isInviteModalOpen: false });
   };
 
+  toggleRoleModalOpen = (member) => {
+    this.setState({ isRoleModalOpen: true, memberEdit: member });
+  };
+
+  toggleRoleModalClose = () => {
+    this.setState({ isRoleModalOpen: false, memberEdit: null });
+  };
+
   render() {
     const { members } = this.props;
-    const { isInviteModalOpen } = this.state;
+    const { isInviteModalOpen, isRoleModalOpen, memberEdit } = this.state;
 
     return (
       <View style={styles.container}>
@@ -56,9 +68,11 @@ class Members extends Component {
         <FlatList
           style={styles.memberList}
           ListFooterComponent={() => (
-            <TouchableOpacity style={styles.button} onPress={this.toggleInviteModalOpen}>
-              <Text style={styles.buttonText}>Convidar</Text>
-            </TouchableOpacity>
+            <Can checkPermission="invites_create">
+              <TouchableOpacity style={styles.button} onPress={this.toggleInviteModalOpen}>
+                <Text style={styles.buttonText}>Convidar</Text>
+              </TouchableOpacity>
+            </Can>
           )}
           data={members.data}
           keyExtractor={item => String(item.id)}
@@ -66,22 +80,33 @@ class Members extends Component {
             <View style={styles.memberContainer}>
               <Text style={styles.memberName}>{item.user.name}</Text>
 
-              <TouchableOpacity
-                hitSlop={{
-                  top: 10,
-                  right: 10,
-                  bottom: 10,
-                  left: 10,
-                }}
-                onPress={() => {}}
-              >
-                <Icon name="settings" size={20} color="#b0b0b0" />
-              </TouchableOpacity>
+              <Can checkRole="administrator">
+                <TouchableOpacity
+                  hitSlop={{
+                    top: 15,
+                    right: 15,
+                    bottom: 15,
+                    left: 15,
+                  }}
+                  onPress={() => this.toggleRoleModalOpen(item)}
+                >
+                  <Icon name="settings" size={20} color="#b0b0b0" />
+                </TouchableOpacity>
+              </Can>
             </View>
           )}
         />
 
-        <InviteMember visible={isInviteModalOpen} onRequestClose={this.toggleInviteModalClose} />
+        <Can checkPermission="invites_create">
+          <InviteMember visible={isInviteModalOpen} onRequestClose={this.toggleInviteModalClose} />
+        </Can>
+        {memberEdit && (
+          <RoleUpdater
+            visible={isRoleModalOpen}
+            onRequestClose={this.toggleRoleModalClose}
+            member={memberEdit}
+          />
+        )}
       </View>
     );
   }

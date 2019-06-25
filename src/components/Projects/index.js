@@ -10,6 +10,7 @@ import {
 import ProjectsActions from '../../store/ducks/projects';
 
 import NewProject from '../NewProject';
+import Can from '../Can';
 
 import styles from './styles';
 
@@ -63,9 +64,11 @@ class Projects extends Component {
           )}
         />
 
-        <TouchableOpacity style={styles.newProjectButton} onPress={this.toggleModalOpen}>
-          <Icon name="add" size={28} color="#fff" />
-        </TouchableOpacity>
+        <Can checkPermission="projects_create">
+          <TouchableOpacity style={styles.newProjectButton} onPress={this.toggleModalOpen}>
+            <Icon name="add" size={28} color="#fff" />
+          </TouchableOpacity>
+        </Can>
 
         <NewProject visible={isModalOpen} onRequestClose={this.toggleModalClose} />
       </View>
