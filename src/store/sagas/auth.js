@@ -9,6 +9,7 @@ import AuthActions from '../ducks/auth';
 import TeamsActions from '../ducks/teams';
 
 export function* init() {
+  // yield put(AuthActions.signOut());
   const token = yield call([AsyncStorage, 'getItem'], '@group_project:token');
 
   if (token) {
