@@ -1,3 +1,4 @@
+/* eslint-disable max-len */
 import React, { Component } from 'react';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import { connect } from 'react-redux';
@@ -8,6 +9,7 @@ import {
 } from 'react-native';
 
 import TeamActions from '../../store/ducks/teams';
+import AuthActions from '../../store/ducks/auth';
 
 import NewTeam from '../NewTeam';
 
@@ -25,6 +27,7 @@ class TeamSwitcher extends Component {
     }).isRequired,
     getTeamsRequest: PropTypes.func.isRequired,
     selectTeam: PropTypes.func.isRequired,
+    signOut: PropTypes.func.isRequired,
   };
 
   state = {
@@ -43,6 +46,12 @@ class TeamSwitcher extends Component {
 
   toggleModalClose = () => {
     this.setState({ isModalOpen: false });
+  };
+
+  signOut = () => {
+    const { signOut } = this.props;
+
+    signOut();
   };
 
   renderTeam = ({ item }) => {
@@ -65,7 +74,6 @@ class TeamSwitcher extends Component {
   render() {
     const { teams } = this.props;
     const { isModalOpen } = this.state;
-    console.log(teams);
 
     return (
       <View style={styles.container}>
@@ -79,47 +87,21 @@ class TeamSwitcher extends Component {
           <Icon name="add" size={24} color="#999" />
         </TouchableOpacity>
 
+        <TouchableOpacity style={styles.logOut} onPress={this.signOut}>
+          <Icon name="clear" size={24} color="#e83f19" />
+        </TouchableOpacity>
+
         <NewTeam visible={isModalOpen} onRequestClose={this.toggleModalClose} />
       </View>
     );
   }
-  // render() {
-  //   const { teams, selectTeam } = this.props;
-  //   const { isModalOpen } = this.state;
-
-  //   return (
-  //     <View style={styles.container}>
-  //       {teams.data.map(team => (
-  //         <TouchableOpacity
-  //           key={team.id}
-  //           style={styles.teamContainer}
-  //           onPress={() => selectTeam(team)}
-  //         >
-  //           <Image
-  //             style={styles.teamAvatar}
-  //             source={{
-  //               uri: `https://ui-avatars.com/api/?font-size=0.33&background=7159c1&color=fff&name=${
-  //                 team.name
-  //               }`,
-  //             }}
-  //           />
-  //         </TouchableOpacity>
-  //       ))}
-  //       <TouchableOpacity style={styles.newTeam} onPress={this.toggleModalOpen}>
-  //         <Icon name="add" size={24} color="#999" />
-  //       </TouchableOpacity>
-
-  //       <NewTeam visible={isModalOpen} onRequestClose={this.toggleModalClose} />
-  //     </View>
-  //   );
-  // }
 }
 
 const mapStateToProps = state => ({
   teams: state.teams,
 });
 
-const mapDispatchToProps = dispatch => bindActionCreators(TeamActions, dispatch);
+const mapDispatchToProps = dispatch => bindActionCreators({ ...TeamActions, ...AuthActions }, dispatch);
 
 export default connect(
   mapStateToProps,

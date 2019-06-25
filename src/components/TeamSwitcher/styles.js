@@ -31,6 +31,18 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
+
+  logOut: {
+    marginVertical: 10,
+    width: 50,
+    height: 50,
+    borderRadius: 25,
+    borderStyle: 'solid',
+    borderWidth: 1,
+    borderColor: '#e83f19',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
 });
 
 export default styles;
