@@ -5,6 +5,8 @@ import { colors } from '../../styles';
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    borderRightWidth: 1,
+    borderColor: colors.darkTransparent,
     backgroundColor: colors.backgroundDarker,
     paddingHorizontal: 10,
     paddingTop: Platform.OS === 'iOS' ? getStatusBarHeight() : 0 + 25,

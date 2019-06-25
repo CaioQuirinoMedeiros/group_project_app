@@ -7,6 +7,8 @@ const styles = StyleSheet.create({
 
   container: {
     flex: 1,
+    borderLeftWidth: 1,
+    borderColor: colors.darkTransparent,
     backgroundColor: colors.backgroundDarker,
     paddingHorizontal: 20,
     paddingTop: Platform.OS === 'iOS' ? getStatusBarHeight() : 0 + 25,
