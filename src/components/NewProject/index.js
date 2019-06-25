@@ -27,6 +27,8 @@ class NewProject extends Component {
 
     createProjectRequest(newProject);
     onRequestClose();
+
+    this.setState({ newProject: '' });
   };
 
   render() {
