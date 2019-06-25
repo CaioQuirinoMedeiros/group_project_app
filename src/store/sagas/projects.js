@@ -7,9 +7,13 @@ import api from '../../services/api';
 import ProjectsActions from '../ducks/projects';
 
 export function* getProjects() {
-  const response = yield call(api.get, 'projects');
+  try {
+    const response = yield call(api.get, 'projects');
 
-  yield put(ProjectsActions.getProjectsSuccess(response.data));
+    yield put(ProjectsActions.getProjectsSuccess(response.data));
+  } catch (err) {
+    yield put(ToastActionsCreators.displayError('Erro ao buscar projetos'));
+  }
 }
 
 export function* createProject({ title }) {

@@ -8,9 +8,13 @@ import api from '../../services/api';
 import TeamsActions from '../ducks/teams';
 
 export function* getTeams() {
-  const response = yield call(api.get, 'teams');
+  try {
+    const response = yield call(api.get, 'teams');
 
-  yield put(TeamsActions.getTeamsSuccess(response.data));
+    yield put(TeamsActions.getTeamsSuccess(response.data));
+  } catch (err) {
+    yield put(ToastActionsCreators.displayError('Erro ao buscar times'));
+  }
 }
 
 export function* createTeam({ name }) {
@@ -18,7 +22,6 @@ export function* createTeam({ name }) {
     const response = yield call(api.post, 'teams', { name });
 
     yield put(TeamsActions.createTeamSuccess(response.data));
-    yield put(TeamsActions.closeTeamModal());
 
     yield put(ToastActionsCreators.displayInfo('Time criado com sucesso'));
   } catch (err) {
