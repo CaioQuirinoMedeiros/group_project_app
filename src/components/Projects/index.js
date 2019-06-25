@@ -17,6 +17,7 @@ import styles from './styles';
 class Projects extends Component {
   static propTypes = {
     getProjectsRequest: PropTypes.func.isRequired,
+    deleteProjectRequest: PropTypes.func.isRequired,
     activeTeam: PropTypes.shape().isRequired,
     projects: PropTypes.shape({
       data: PropTypes.arrayOf(
@@ -45,6 +46,12 @@ class Projects extends Component {
     this.setState({ isModalOpen: false });
   };
 
+  deleteProject = (id) => {
+    const { deleteProjectRequest } = this.props;
+
+    deleteProjectRequest(id);
+  };
+
   render() {
     const { projects, activeTeam } = this.props;
     const { isModalOpen } = this.state;
@@ -60,6 +67,17 @@ class Projects extends Component {
           renderItem={({ item }) => (
             <View style={styles.projectContainer}>
               <Text style={styles.projectTitle}>{item.title}</Text>
+              <TouchableOpacity
+                hitSlop={{
+                  top: 10,
+                  right: 10,
+                  bottom: 10,
+                  left: 10,
+                }}
+                onPress={() => this.deleteProject(item.id)}
+              >
+                <Icon name="delete" size={22} color="#7289DA" />
+              </TouchableOpacity>
             </View>
           )}
         />

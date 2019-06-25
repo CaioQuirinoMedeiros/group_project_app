@@ -88,7 +88,7 @@ class TeamSwitcher extends Component {
         </TouchableOpacity>
 
         <TouchableOpacity style={styles.logOut} onPress={this.signOut}>
-          <Icon name="clear" size={24} color="#e83f19" />
+          <Icon name="exit-to-app" size={24} color="#e83f19" />
         </TouchableOpacity>
 
         <NewTeam visible={isModalOpen} onRequestClose={this.toggleModalClose} />

@@ -12,6 +12,8 @@ const styles = StyleSheet.create({
 
   projectContainer: {
     backgroundColor: colors.darkTransparent,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
     borderWidth: 1,
     borderColor: colors.darkTransparent,
     padding: 20,
