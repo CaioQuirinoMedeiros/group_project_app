@@ -5,8 +5,6 @@ import Immutable from 'seamless-immutable';
  * Actions & Types
  */
 const { Types, Creators } = createActions({
-  openMemberModal: null,
-  closeMemberModal: null,
   getMembersRequest: null,
   getMembersSuccess: ['data'],
   updateMemberRequest: ['id', 'roles'],
@@ -27,10 +25,6 @@ const INITIAL_STATE = Immutable({
 /**
  * Reducers
  */
-const openModal = state => state.merge({ memberModalOpen: true });
-
-const closeModal = state => state.merge({ memberModalOpen: false });
-
 const getSuccess = (state, { data }) => state.merge({ data });
 
 const updateMember = (state, { id, roles }) => state.merge({
@@ -40,8 +34,6 @@ const updateMember = (state, { id, roles }) => state.merge({
  * Reducers to types
  */
 export const reducer = createReducer(INITIAL_STATE, {
-  [Types.OPEN_MEMBER_MODAL]: openModal,
-  [Types.CLOSE_MEMBER_MODAL]: closeModal,
   [Types.GET_MEMBERS_SUCCESS]: getSuccess,
   [Types.UPDATE_MEMBER_REQUEST]: updateMember,
 });

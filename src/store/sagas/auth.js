@@ -42,8 +42,6 @@ export function* signIn({ email, password }) {
 
 export function* signOut() {
   yield call([AsyncStorage, 'clear']);
-
-  // yield put(push('/signin'));
 }
 
 export function* signUp({ name, email, password }) {

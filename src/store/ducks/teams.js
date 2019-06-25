@@ -9,8 +9,6 @@ const { Types, Creators } = createActions({
   getTeamsSuccess: ['data'],
   getTeamsFailure: null,
   selectTeam: ['team'],
-  openTeamModal: null,
-  closeTeamModal: null,
   createTeamRequest: ['name'],
   createTeamSuccess: ['team'],
 });
@@ -34,10 +32,6 @@ const getSuccess = (state, { data }) => state.merge({ data });
 
 const selectTeam = (state, { team }) => state.merge({ active: team });
 
-const openTeamModal = state => state.merge({ teamModalOpen: true });
-
-const closeTeamModal = state => state.merge({ teamModalOpen: false });
-
 const createSuccess = (state, { team }) => state.merge({ data: [...state.data, team] });
 
 /**
@@ -46,7 +40,5 @@ const createSuccess = (state, { team }) => state.merge({ data: [...state.data, t
 export const reducer = createReducer(INITIAL_STATE, {
   [Types.GET_TEAMS_SUCCESS]: getSuccess,
   [Types.SELECT_TEAM]: selectTeam,
-  [Types.OPEN_TEAM_MODAL]: openTeamModal,
-  [Types.CLOSE_TEAM_MODAL]: closeTeamModal,
   [Types.CREATE_TEAM_SUCCESS]: createSuccess,
 });

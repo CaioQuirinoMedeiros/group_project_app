@@ -7,9 +7,13 @@ import api from '../../services/api';
 import MembersActions from '../ducks/members';
 
 export function* getMembers() {
-  const response = yield call(api.get, 'members');
+  try {
+    const response = yield call(api.get, 'members');
 
-  yield put(MembersActions.getMembersSuccess(response.data));
+    yield put(MembersActions.getMembersSuccess(response.data));
+  } catch (err) {
+    yield put(ToastActionsCreators.displayError('Erro ao buscar membros'));
+  }
 }
 
 export function* updateMember({ id, roles }) {
