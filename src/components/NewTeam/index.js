@@ -27,6 +27,8 @@ class NewTeam extends Component {
 
     createTeamRequest(newTeam);
     onRequestClose();
+
+    this.setState({ newTeam: '' });
   };
 
   render() {

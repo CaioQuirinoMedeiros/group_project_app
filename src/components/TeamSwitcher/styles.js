@@ -1,4 +1,4 @@
-import { StyleSheet } from 'react-native';
+import { StyleSheet, Platform } from 'react-native';
 import { getStatusBarHeight } from 'react-native-iphone-x-helper';
 import { colors } from '../../styles';
 
@@ -7,7 +7,7 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: colors.backgroundDarker,
     paddingHorizontal: 10,
-    paddingTop: getStatusBarHeight() + 25,
+    paddingTop: Platform.OS === 'iOS' ? getStatusBarHeight() : 0 + 25,
   },
 
   teamContainer: {
@@ -21,6 +21,7 @@ const styles = StyleSheet.create({
   },
 
   newTeam: {
+    marginVertical: 10,
     width: 50,
     height: 50,
     borderRadius: 25,
