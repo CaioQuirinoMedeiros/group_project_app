@@ -29,9 +29,6 @@ class SignIn extends Component {
     const { email, password } = this.state;
     const { signInRequest } = this.props;
 
-    console.log('email: ', email);
-    console.log('password: ', password);
-
     signInRequest(email, password);
   };
 
